@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heart Generator</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 50px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+    #message {
+      font-size: 20px;
+      color: #FF69B4;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Click the button to generate a heart</h2>
+  <button onclick="drawHeart()">Generate Heart</button>
+  <br>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <p id="message"></p>
+
+  <script>
+    function drawHeart() {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        // Plot the heart curve using the parametric equations
+        for (var t = 0; t < Math.PI * 2; t += 0.01) {
+          var x = 16 * Math.pow(Math.sin(t), 3);
+          var y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+          // Scale and translate the coordinates so the heart is centered on the canvas
+          var scaledX = x * 10 + canvas.width / 2;
+          var scaledY = -y * 10 + canvas.height / 2;
+          if (t === 0) {
+            ctx.moveTo(scaledX, scaledY);
+          } else {
+            ctx.lineTo(scaledX, scaledY);
+          }
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'pink';
+        ctx.fill();
+      }
+      // Display the message below the canvas
+      document.getElementById('message').textContent = "Ruby you are the most cute baby in the world! I love you Janny";
+    }
+  </script>
+</body>
+</html>
